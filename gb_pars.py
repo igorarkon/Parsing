@@ -4,6 +4,7 @@ import requests
 from urllib.parse import urljoin
 import bs4
 import pymongo
+from database.database import Database
 
 
 class GbBlogParse:
@@ -28,7 +29,7 @@ class GbBlogParse:
             response = requests.get(url, headers=self.headers)
             print(f"RESPONSE: {response.url}")
             self.__parse_time = time.time()
-            if response.status_code == 200:
+            if response.status_code in (206, 200):
                 return response
 
     def get_task(self, url: str, callback: typing.Callable) -> typing.Callable:
